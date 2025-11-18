@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manga Food - Manga Temalı Restoran</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Genel Stiller */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Comic Neue', cursive, sans-serif;
+        }
+
+        :root {
+            --primary: #ff6b6b;
+            --secondary: #4ecdc4;
+            --accent: #ffd166;
+            --dark: #1a1a2e;
+            --light: #f7f7f7;
+            --manga-red: #e63946;
+            --manga-blue: #457b9d;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn:hover {
+            background-color: var(--manga-red);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--manga-blue);
+        }
+
+        .section-title {
+            text-align: center;
+            margin: 3rem 0 2rem;
+            font-size: 2.5rem;
+            color: var(--dark);
+            position: relative;
+        }
+
+        .section-title:after {
+            content: "";
+            display: block;
+            width: 100px;
+            height: 5px;
+            background: var(--primary);
+            margin: 10px auto;
+            border-radius: 5px;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--dark);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-icon {
+            color: var(--primary);
+            margin-right: 10px;
+            font-size: 2.2rem;
+        }
+
+        .logo-text {
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        nav ul li a:after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+
+        nav ul li a:hover:after {
+            width: 100%;
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(26, 26, 46, 0.8), rgba(26, 26, 46, 0.8)), 
+                        url('https://images.unsplash.com/photo-1553621042-f6e147245754?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 6rem 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        /* Manga Style Elements */
+        .manga-bubble {
+            position: absolute;
+            background: white;
+            border: 3px solid var(--dark);
+            border-radius: 20px;
+            padding: 10px 15px;
+            font-weight: bold;
+            box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.2);
+            z-index: 5;
+        }
+
+        .bubble-1 {
+            top: 20%;
+            left: 10%;
+            transform: rotate(-5deg);
+            background-color: var(--accent);
+        }
+
+        .bubble-2 {
+            top: 60%;
+            right: 10%;
+            transform: rotate(3deg);
+            background-color: var(--secondary);
+        }
+
+        .bubble-3 {
+            bottom: 20%;
+            left: 15%;
+            transform: rotate(-2deg);
+            background-color: var(--primary);
+            color: white;
+        }
+
+        /* Food Menu */
+        .menu-categories {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .category-btn {
+            background: white;
+            border: 2px solid var(--dark);
+            padding: 0.7rem 1.5rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .category-btn.active, .category-btn:hover {
+            background: var(--dark);
+            color: white;
+        }
+
+        .food-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .food-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+
+        .food-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .food-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .food-info {
+            padding: 1.5rem;
+        }
+
+        .food-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .food-desc {
+            color: #666;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .food-price {
+            font-weight: bold;
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .add-to-cart {
+            width: 100%;
+            padding: 0.7rem;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        .add-to-cart:hover {
+            background-color: var(--manga-red);
+        }
+
+        .manga-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--accent);
+            color: var(--dark);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.8rem;
+            box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        /* About Section */
+        .about {
+            background: var(--dark);
+            color: white;
+            padding: 5rem 0;
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .about-image {
+            flex: 1;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 10px 10px 0 var(--primary);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+
+        .testimonial-card:before {
+            content: """;
+            position: absolute;
+            top: 10px;
+            left: 15px;
+            font-size: 4rem;
+            color: var(--primary);
+            opacity: 0.2;
+            font-family: Georgia, serif;
+        }
+
+        .testimonial-text {
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 1rem;
+            border: 2px solid var(--primary);
+        }
+
+        .author-info h4 {
+            margin-bottom: 0.2rem;
+        }
+
+        .author-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Cart Modal */
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .cart-content {
+            background-color: white;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 15px;
+            padding: 2rem;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 1rem;
+        }
+
+        .close-cart {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .cart-items {
+            margin-bottom: 1.5rem;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-item-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .cart-item-img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            margin-right: 1rem;
+            border-radius: 8px;
+        }
+
+        .cart-item-details h4 {
+            margin-bottom: 0.3rem;
+        }
+
+        .cart-item-price {
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .cart-item-remove {
+            background: none;
+            border: none;
+            color: #e74c3c;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        .cart-total {
+            text-align: right;
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 1rem;
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .checkout-btn:hover {
+            background-color: var(--manga-blue);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 4rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-column h3:after {
+            content: "";
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--primary);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-column ul li a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--primary);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-icons a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .about-image {
+                margin-top: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav ul {
+                margin-top: 1rem;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            nav ul li {
+                margin: 0.5rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .mobile-menu {
+                display: block;
+                position: absolute;
+                top: 1rem;
+                right: 1rem;
+            }
+
+            nav {
+                display: none;
+                width: 100%;
+                margin-top: 1rem;
+            }
+
+            nav.active {
+                display: block;
+            }
+
+            nav ul {
+                flex-direction: column;
+            }
+
+            nav ul li {
+                margin: 0.5rem 0;
+            }
+
+            .manga-bubble {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-utensils logo-icon"></i>
+                    <span class="logo-text">Manga Food</span>
+                </div>
+                <div class="mobile-menu">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <nav id="mainNav">
+                    <ul>
+                        <li><a href="#">Bosh Sahifa</a></li>
+                        <li><a href="#menu">Menyu</a></li>
+                        <li><a href="#about">Biz Haqimizda</a></li>
+                        <li><a href="#testimonials">Sharhlar</a></li>
+                        <li><a href="#contact">Aloqa</a></li>
+                        <li>
+                            <div class="cart-icon" id="cartIcon">
+                                <i class="fas fa-shopping-cart"></i> 
+                                <span class="cart-count" id="cartCount">0</span>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="manga-bubble bubble-1">Anime tadbir! 🎉</div>
+        <div class="manga-bubble bubble-2">Yangi taomlar! 🍣</div>
+        <div class="manga-bubble bubble-3">10% chegirma! 🔥</div>
+        
+        <div class="container">
+            <div class="hero-content">
+                <h1>Manga va O'zbek Taomlari Uyg'unligi</h1>
+                <p>Manga dunyosining sehrli atmosferasida an'anaviy va zamonaviy taomlarning noyob aralashmasini tatib ko'ring. Har bir taom - bu haqiqiy san'at asari!</p>
+                <div class="hero-buttons">
+                    <a href="#menu" class="btn">Menyuni Ko'rish</a>
+                    <a href="#reservation" class="btn btn-secondary">Stol Band Qilish</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="container">
+        <h2 class="section-title">Manga Menyusi</h2>
+        
+        <div class="menu-categories">
+            <button class="category-btn active" data-category="all">Hammasi</button>
+            <button class="category-btn" data-category="anime">Anime Taomlari</button>
+            <button class="category-btn" data-category="uzbek">O'zbek Taomlari</button>
+            <button class="category-btn" data-category="dessert">Shirinliklar</button>
+            <button class="category-btn" data-category="drink">Ichimliklar</button>
+        </div>
+        
+        <div class="food-grid" id="foodGrid">
+            <!-- Food items will be loaded by JavaScript -->
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>Manga Food Haqida</h2>
+                    <p>Manga Food - bu Yaponiya manga madaniyati va O'zbekiston milliy oshxona an'analarining noyob uyg'unligi. Bizning restoranimizda siz nafaqat mazali taomlar, balki haqiqiy manga atmosferasini his qilasiz.</p>
+                    <p>Bizning oshpazlarimiz an'anaviy retseptlarni manga estetikasi bilan uyg'unlashtirib, har bir taomni haqiqiy san'at asariga aylantirishadi.</p>
+                    <p>Har dam o'zingizni sevimli mangangiz qahramoni kabi his qiling va bizning noyob taomlarimizdan bahramand bo'ling!</p>
+                    <a href="#reservation" class="btn">Tashrif Buyurish</a>
+                </div>
+                <div class="about-image">
+                    <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Manga Food Interior">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <h2 class="section-title">Mijozlarimiz Fikrlari</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "Manga Food - bu mening sevimli dam olish joyim. Taomlar nafaqat mazali, balki juda chiroyli bezatilgan. Har safar bu erga kelganimda, o'zimni mangadagi kabi his qilaman!"
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Customer" class="author-avatar">
+                        <div class="author-info">
+                            <h4>Dilnoza Xolmirzayeva</h4>
+                            <p>Manga Muhabbatchisi</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "O'zbek va yapon oshxonalarining bunday uyg'unligini hech qaerda ko'rmagandim. Sushi va manti bir dasturxonda - bu ajoyib g'oya! Oila bilan tez-tez tashrif buyuramiz."
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/men/54.jpg" alt="Customer" class="author-avatar">
+                        <div class="author-info">
+                            <h4>Javohir Tursunov</h4>
+                            <p>Oshpaz</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "Interyer va taomlarning dizayni ajoyib! Har bir taom haqiqiy manga sahifasidan chiqqandek ko'rinadi. Instagram uchun mukammal joy - har bir ovqat suratga olish uchun mo'ljallangan."
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Customer" class="author-avatar">
+                        <div class="author-info">
+                            <h4>Sevinch Qodirova</h4>
+                            <p>Bloger</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <h2>Sizning Savatingiz</h2>
+                <button class="close-cart" id="closeCart">&times;</button>
+            </div>
+            <div class="cart-items" id="cartItems">
+                <!-- Cart items will be loaded by JavaScript -->
+            </div>
+            <div class="cart-total">
+                Jami: <span id="cartTotal">0</span> so'm
+            </div>
+            <button class="checkout-btn">Buyurtma Berish</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Manga Food</h3>
+                    <p>Manga va O'zbek oshxona an'analarining noyob uyg'unligi. Har bir taom - bu haqiqiy san'at asari!</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Manzil</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> Toshkent shahri, Yunusobod tumani</li>
+                        <li><i class="fas fa-phone"></i> +998 90 123 45 67</li>
+                        <li><i class="fas fa-envelope"></i> info@mangafood.uz</li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Ish Vaqtlari</h3>
+                    <ul>
+                        <li>Dushanba - Juma: 9:00 - 23:00</li>
+                        <li>Shanba - Yakshanba: 10:00 - 00:00</li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Tez Havolalar</h3>
+                    <ul>
+                        <li><a href="#">Bosh Sahifa</a></li>
+                        <li><a href="#menu">Menyu</a></li>
+                        <li><a href="#about">Biz Haqimizda</a></li>
+                        <li><a href="#testimonials">Sharhlar</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2023 Manga Food. Barcha huquqlar himoyalangan. | Website created with ❤️ for manga lovers
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Food data
+        const foodData = [
+            {
+                id: 1,
+                title: "Naruto Ramen",
+                description: "Naruto anime serialidagi mashhur ramen. Ajoyib tarkib va mazali bulon.",
+                price: 45000,
+                image: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+                category: "anime"
+            },
+            {
+                id: 2,
+                title: "Manga Manti",
+                description: "An'anaviy manti manga uslubida. Qo'y go'shti va ziravorlar.",
+                price: 35000,
+                image: "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+                category: "uzbek"
+            },
+            {
+                id: 3,
+                title: "Dragon Roll Sushi",
+                description: "Mazali avokado, krevyetka va maxsus sous bilan tayyorlangan sushi.",
+                price: 55000,
+                image: "https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+                category: "anime"
+            },
+            {
+                id: 4,
+                title: "Anime Plov",
+                description: "O'zbek oshiga manga uslubi. Go'shtli, sabzavotli va mazali.",
+                price: 40000,
+                image: "https://images.unsplash.com/photo-1563245372-f21724e3856d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+                category: "uzbek"
+            },
+            {
+                id: 5,
+                title: "Pikachu Desert",
+                description: "Sariq rangli, mazali shirinlik. Pikachu shaklida bezatilgan.",
+                price: 25000,
+                image: "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+                category: "dessert"
+            },
+            {
+                id: 6,
+                title: "Manga Mojito",
+                description: "An'anaviy mojitoning manga versiyasi. Rangli va mazali.",
+                price: 20000,
+                image: "https://images.unsplash.com/photo-1544145945-f90425340c7e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+                category: "drink"
+            },
+            {
+                id: 7,
+                title: "One Piece Burger",
+                description: "Katta, mazali burger One Piece mavzusida. Go'sht, salat va maxsus sous.",
+                price: 38000,
+                image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+                category: "anime"
+            },
+            {
+                id: 8,
+                title: "Manga Shashlik",
+                description: "An'anaviy shashlik manga uslubida. Mol go'shti va maxsus marinad.",
+                price: 42000,
+                image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
+                category: "uzbek"
+            }
+        ];
+
+        // Cart data
+        let cart = [];
+        const cartIcon = document.getElementById('cartIcon');
+        const cartCount = document.getElementById('cartCount');
+        const cartModal = document.getElementById('cartModal');
+        const closeCart = document.getElementById('closeCart');
+        const cartItems = document.getElementById('cartItems');
+        const cartTotal = document.getElementById('cartTotal');
+        const foodGrid = document.getElementById('foodGrid');
+        const categoryButtons = document.querySelectorAll('.category-btn');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const mainNav = document.getElementById('mainNav');
+
+        // Render food items
+        function renderFood(category = 'all') {
+            foodGrid.innerHTML = '';
+            const filteredFood = category === 'all' 
+                ? foodData 
+                : foodData.filter(food => food.category === category);
+            
+            filteredFood.forEach(food => {
+                const foodCard = document.createElement('div');
+                foodCard.className = 'food-card';
+                foodCard.innerHTML = `
+                    <div class="manga-badge">Manga</div>
+                    <img src="${food.image}" alt="${food.title}" class="food-img">
+                    <div class="food-info">
+                        <h3 class="food-title">${food.title}</h3>
+                        <p class="food-desc">${food.description}</p>
+                        <p class="food-price">${food.price.toLocaleString()} so'm</p>
+                        <button class="add-to-cart" data-id="${food.id}">Savatga Qo'shish</button>
+                    </div>
+                `;
+                foodGrid.appendChild(foodCard);
+            });
+
+            // Add event listeners to add-to-cart buttons
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', addToCart);
+            });
+        }
+
+        // Add to cart function
+        function addToCart(e) {
+            const foodId = parseInt(e.target.getAttribute('data-id'));
+            const food = foodData.find(item => item.id === foodId);
+            
+            // Check if item already in cart
+            const existingItem = cart.find(item => item.id === foodId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    ...food,
+                    quantity: 1
+                });
+            }
+            
+            updateCart();
+            showNotification(`${food.title} savatga qo'shildi!`);
+        }
+
+        // Update cart function
+        function updateCart() {
+            cartCount.textContent = cart.reduce((total, item) => total + item.quantity, 0);
+            
+            // Update cart modal
+            cartItems.innerHTML = '';
+            let total = 0;
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p style="text-align: center; padding: 2rem;">Savat hozircha boʻsh</p>';
+            } else {
+                cart.forEach(item => {
+                    const itemTotal = item.price * item.quantity;
+                    total += itemTotal;
+                    
+                    const cartItem = document.createElement('div');
+                    cartItem.className = 'cart-item';
+                    cartItem.innerHTML = `
+                        <div class="cart-item-info">
+                            <img src="${item.image}" alt="${item.title}" class="cart-item-img">
+                            <div class="cart-item-details">
+                                <h4>${item.title}</h4>
+                                <p class="cart-item-price">${item.price.toLocaleString()} so'm x ${item.quantity}</p>
+                            </div>
+                        </div>
+                        <button class="cart-item-remove" data-id="${item.id}">&times;</button>
+                    `;
+                    cartItems.appendChild(cartItem);
+                });
+            }
+            
+            cartTotal.textContent = total.toLocaleString();
+            
+            // Add event listeners to remove buttons
+            document.querySelectorAll('.cart-item-remove').forEach(button => {
+                button.addEventListener('click', removeFromCart);
+            });
+        }
+
+        // Remove from cart function
+        function removeFromCart(e) {
+            const foodId = parseInt(e.target.getAttribute('data-id'));
+            cart = cart.filter(item => item.id !== foodId);
+            updateCart();
+        }
+
+        // Show notification function
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background-color: var(--success, #2ecc71);
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+                z-index: 1001;
+                transition: opacity 0.3s;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Event listeners
+        cartIcon.addEventListener('click', () => {
+            cartModal.style.display = 'flex';
+        });
+
+        closeCart.addEventListener('click', () => {
+            cartModal.style.display = 'none';
+        });
+
+        cartModal.addEventListener('click', (e) => {
+            if (e.target === cartModal) {
+                cartModal.style.display = 'none';
+            }
+        });
+
+        // Category filter
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                categoryButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                button.classList.add('active');
+                // Render food for selected category
+                const category = button.getAttribute('data-category');
+                renderFood(category);
+            });
+        });
+
+        // Mobile menu toggle
+        mobileMenu.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+        });
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', () => {
+            renderFood();
+            updateCart();
+        });
+    </script>
+</body>
+</html>
